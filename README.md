@@ -1,1 +1,1 @@
-# Pascal-VOC-Segmentation
+# Semantic-Segmentation
