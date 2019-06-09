@@ -16,9 +16,11 @@ import pandas as pd
 import cv2
 import os
 
+
 root_dir_test = '../VOCdevkit2/VOC2007/'
 img_dir_test = os.path.join(root_dir_test, 'JPEGImages')
 ann_dir_test = os.path.join(root_dir_test, 'Annotations')
+gt_dir_test = os.path.join(root_dir_test, 'SegmentationClass')
 set_dir_test = os.path.join(root_dir_test, 'ImageSets', 'Main')
 
 
@@ -31,29 +33,38 @@ set_dir = os.path.join(root_dir, 'ImageSets', 'Main')
 #bird = [0,255,0]
 #person = [255,0,0]
     
-def test(X_train, Y_train, segments):
-    clf_svm = SVC()
-    clf_svm.fit(X_train, Y_train)
-
+def analiseSuperpixels(image):
+    #image = img_as_float(image[::2, ::2])
+    GT = cv2.imread()
+    segments = slic(img_as_float(image), n_segments = 100, sigma = 5)
 
     for (i, segVal) in enumerate(np.unique(segments)):
 	    # construct a mask for the segment
-        print ("[x] inspecting segment %d" % (i))
         mask = np.zeros(image.shape[:2], dtype = "uint8")
-        mask[segments == segVal] = 255
-        
+        mask[segments == segVal] = 255        
         seg =  cv2.bitwise_and(image, image, mask = mask)
-        props = comatImg(res) 
+        props = comatImg(seg) 
         if (i==0):
             testProps = props
         else:
             testProps = np.vstack((testProps, props))
+        
+    return testProps
 
-    pred_svm = clf.predict(testProps)
+
+def test(X_train, Y_train, image):
+    clf_svm = SVC()
+    clf_svm.fit(X_train, Y_train)
+
+    testProps = analiseSuperpixels(image)
+    pred_svm = clf_svm.predict(testProps)
     print(pred_svm)
 
-    #clf_rf = RandomForestClassifier()
-    #clf_rf.fit((X_train, Y_train))
+    clf_rf = RandomForestClassifier()
+    clf_rf.fit(X_train, Y_train)
+
+    pred_svm = clf_rf.predict(testProps)
+    print(pred_svm)
 
 
 
@@ -99,10 +110,10 @@ def segmentations(img):
     segments_watershed = watershed(gradient, markers=250, compactness=0.001)
     print_and_plot(img, segments_watershed, "Compact Watershed", ax)
     
-    for a in ax.ravel():
-        a.set_axis_off()
-    plt.tight_layout()
-    plt.show()
+    #for a in ax.ravel():
+    #    a.set_axis_off()
+    #plt.tight_layout()
+    #plt.show()
 
     return segments_fz
     
