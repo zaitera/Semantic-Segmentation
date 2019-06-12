@@ -13,7 +13,7 @@ features:
     convolution to trade-off precision and runtime.
 
 ### Potentially based on https://github.com/tensorflow/models/tree/master/research/deeplab
-### Use the Environment environment.yaml for a better compatibility 
+### Use the conda env environment.yaml provided for a better compatibility 
 #### For more instrucitons (database related and commands for running) check:  
            ./g3doc/"the readme related for your case"
 * This repository and results were tested on the PASCAL 2007 database.  
