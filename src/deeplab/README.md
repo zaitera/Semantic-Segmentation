@@ -59,7 +59,7 @@ Image Segmentation},
 ```
 * Current model implementation
 
-  ###  Xception [9, 10]: A powerful network structure intended for server-side deployment.
+  ####  Xception [9, 10]: A powerful network structure intended for server-side deployment.
 
 
 This directory contains TensorFlow [11] implementation. codes
