@@ -4,7 +4,7 @@
 ##	    Ian Alexandre	15/0129661
 
 
-## Without CNN Implementation:
+## Texture Analisys Segmentation Implementation:
 ## Requirements:
 *Python 3
 *OpenCV version > 3
@@ -17,10 +17,10 @@
 *matplotlib.pyplot
 
 ## Instructions
+Por favor, retire os documentos da pasta /texture_analisys, deixando-os na pasta /scr. Certifique-se que a pasta VOCdevkit esteja no path ../VOCdevkit
+
 run the script:
 	python3 TheMain.py
 
 
-# For RAG maps generator:
-	python3 plot_rag_mean_color.py
--> You need to write the whole path to the image you want to make the Segmentation
+

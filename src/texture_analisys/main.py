@@ -1,4 +1,4 @@
-from teste2 import *
+from utils import *
 from loadingDataset import *
 
 def main():
@@ -7,18 +7,18 @@ def main():
     df = load_train_data('train')        
     for row_num, entry in df.iterrows():
         img = cv2.imread(img_dir + '/' +entry.fname)
-        res, bg = filtering_image(img)
-        props = comatImg(res)
+        #res, bg = filtering_image(img)
+        xmin = entry.xmin
+        xmax = entry.xmax
+        ymin = entry.ymin
+        ymax = entry.ymax
+        props = comatImg(img[ymin:ymax, xmin:xmax])
         if (row_num==0):
             trainProps = props
             trainCat = entry.obj
         else:
             trainProps = np.vstack((trainProps, props))
             trainCat = np.vstack((trainCat, entry.obj))
-        if (row_num < 130):
-            prop_bg = comatImg(bg)            
-            trainProps = np.vstack((trainProps, prop_bg))
-            trainCat = np.vstack((trainCat, 0))
     print("Done!")
         
     trainProps = np.array(trainProps)
